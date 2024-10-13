@@ -1,0 +1,515 @@
+#Section 01. 넘파이 소개
+## 1. 넘파이 개념
+
+import numpy as np # numpy의 별칭을 np로 설정
+print(np.__version__) # 파이썬 라이브러리의 버전 확인
+
+##2. 넘파이 배열
+
+import numpy as np 
+d=np.arange(12).reshape(3,4) #3행 4열로 하겠다
+print(d,d.shape)
+
+import numpy as np
+d=np.arange(12).reshape(3,4)
+print(d)
+
+###dtype (데이터타입)
+
+print(d.dtype)
+
+###ndim (몇 차원의 배열인가)
+
+print(d.ndim)
+
+###T (대문자 T를 하게 되면 전치 행렬 트랜스포즈 의미 행과열을 바꿈)
+
+print(d.T) # 전치 행렬
+
+###size (데이터의 갯수 즉 요소의 갯수)
+
+print(d.size) # 요소의 개수
+
+###nbtypes
+
+print(d.nbytes) # 64bit는 8byte이므로 총 96byte(8*12)
+
+### flat (기입한 값으로 값을 초기화)
+
+d.flat=1
+print(d)
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+##3. 넘파이 배열 생성
+##리스트로 생성
+
+mynpa1=np.array([1, 2, 3])
+print(type(mynpa1))
+
+mylist2=[[1, 2, 3],
+ [4, 5, 6]]
+print(type(mylist2))
+mynpa2=np.array(mylist2) # 변수명 직접 입력
+print(type(mynpa2))
+
+###데이터프레임으로 생성
+
+import pandas as pd
+mypd1=pd.DataFrame([1, 2, 3])
+print(type(mypd1))
+mynp1=np.array(mypd1)
+print(type(mynp1))
+
+import pandas as pd
+mylist2=[[1, 2, 3],
+ [4, 5, 6]]
+print(type(mylist2))
+mypd2=pd.DataFrame(mylist2)
+print(type(mypd2))
+mynpa2=np.array(mypd2)
+print(type(mynpa2))
+mypd2
+
+##4. n차원 넘파이 배열
+##5. 1차원 넘파이 배열 생성
+
+
+import numpy as np
+a=np.arange(3)
+print(a, type(a), a.ndim, a.shape)
+
+####① 종료값만 설정
+
+a2=np.arange(7)
+print(a2, a2.ndim, a2.shape)
+
+#### ② 시작값, 종료값 설정
+
+a2=np.arange(2, 4)
+print(a2, a2.shape)
+
+####③ 시작값, 종료값, 증가값 모두 설정
+
+a3=np.arange(0, 5, 2)
+print(a3, a3.shape)
+
+##6. 2차원 넘파이 배열 생성
+### 2행 3열의 배열 생성
+
+m=np.array([[0, 1, 2],
+ [3, 4, 5]])
+print(m, m.shape)
+
+m=np.array([np.arange(3), np.arange(3, 6)])
+print(m, m.shape)
+
+###3행 2열의 배열 생성
+
+m=np.array([[0, 3],
+ [1, 4],
+ [2, 5]])
+print(m, m.shape)
+print(m.shape[0], m.shape[1])
+
+m=np.array([np.arange(0, 4, 3), np.arange(1, 5, 3),
+np.arange(2, 6, 3)])
+print(m, m.shape)
+
+##7. 3차원 넘파이 배열 생성
+
+m=np.array([[[0, 1, 2],
+ [3, 4, 5]],
+ [[0, 1, 2],
+ [3, 4, 5]]])
+print(m)
+print(m.shape)
+
+m=np.array([[[0, 1],
+ [2, 3]],
+ [[4, 5],
+ [6, 7]],
+ [[8, 9],
+ [10, 11]]])
+print(m, m.shape)
+
+m=np.array([[[0, 1, 2]],
+ [[3, 4, 5]],
+ [[0, 1, 2]],
+ [[3, 4, 5]]])
+print(m, m.shape)
+
+###<여기서 잠깐> 파이썬의 range 함수와 넘파이의 arange 함수
+
+list=[1, 2, 3, 4, 5]
+for i in list:
+  print(i)
+
+list=[1, 2, 3, 4, 5]
+for i in range(1, 6):
+  print(i)
+
+list=[1, 2, 3, 4, 5]
+for i in range(1, 6, 2):
+  print(i)
+
+arr=[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+arr
+
+arr=np.arange(start=1, stop=11, step=1)
+arr
+
+arr=np.arange(1, 11)
+arr
+
+arr=np.arange(start=1, stop=10, step=2)
+arr
+
+arr=np.arange(1, 10, 2)
+arr
+
+# Section 02. 배열 다루기
+## 1. 배열의 데이터형 확인과 변형
+
+import numpy as np
+
+nda=np.array([0, 1, 2, 3, 4, 5])
+print(nda, type(nda)) # nda 변수의 데이터형 반환
+print(nda.dtype) # 넘파이 배열인 nda 요소의 자료형 반환
+nda # 넘파이 배열이므로 array([]) 형식으로 표시
+
+nda1=np.array([0, 1, 2, 3.0, 4, 5])
+print(nda1, nda1.dtype)
+
+nda2=np.array([0, 1, 2, 3, 4, 5])
+print(nda2, nda2.dtype)
+
+## 2. 배열의 형태 변경
+###배열의 구조 변경하기: reshape 함수
+
+m1=np.arange(6)
+print(m1)
+print(m1.shape)
+
+m2=m1.reshape(6, 1)
+print(m2, m2.shape) # 1행 6열을 6행 1열로 변경
+
+m2=m1.reshape(2, 3)
+print(m2, m2.shape)
+
+m1=np.arange(12)
+m3=m1.reshape(2, 2, 3)
+print(m3, m3.shape)
+
+m1=np.arange(6)
+print(m1, m1.shape)
+m2=m1.reshape(-1, 2) # 행 수는 자동, 2열 생성
+print(m2, m2.shape)
+m2=m1.reshape(-1, 3) # 행 수는 자동, 3열 생성
+print(m2, m2.shape)
+m2=m1.reshape(-1, 1) # 행 수는 자동, 1열 생성
+print(m2, m2.shape)
+
+m1=np.arange(6)
+m3=m1.reshape(-1, 2, 3)
+print(m3, m3.shape)
+m3=m1.reshape(-1, 3, 2) # 면 수 자동, 3행 2열 생성
+print(m3,m3.shape)
+m3=m1.reshape(2, 3, -1) # 열 수 자동, 2면 3행 생성
+print(m3, m3.shape)
+
+###다차원 배열을 1차원 배열로 평탄화하기: flatten 함수
+
+a=np.arange(12).reshape(3, 4)
+a
+
+f=a.flatten()
+print(f, f.shape)
+
+###배열의 방향 변경하기
+
+a
+
+print(a[::-1]) # 행 순서를 거꾸로 변경
+
+
+
+a
+
+print(a[:,::-1]) # 열 순서를 거꾸로 변경
+
+a
+
+print(a[::-1,::-1]) # 행과 열 순서를 거꾸로 변경
+
+t=a.transpose()
+print(a, a.shape) # a 배열은 3행 4열
+print(t, t.shape) # t 배열은 a 배열을 4행 3열로 변경한 것
+
+print(a.T) # transpose() 함수와 결과 동일
+
+##3. 배열 통합과 분할
+
+a=np.arange(9).reshape(3, 3)
+b=a*2
+print(a)
+print(b)
+
+r=np.vstack((a, b))
+print(r, r.shape)
+
+c=np.row_stack((a, b))
+print(c, c.shape)
+
+x=np.concatenate((a, b), axis=0)
+print(x, x.shape)
+
+###열 방향으로 합치기
+
+r=np.hstack((a, b))
+print(r, r.shape)
+
+c=np.column_stack((a, b))
+print(c, c.shape)
+
+x=np.concatenate((a, b), axis=1)
+print(x, x.shape)
+
+###행 단위로 분할하기
+
+a=np.arange(12).reshape(4, 3)
+print(a)
+
+print(np.vsplit(a, 4))
+
+print(np.split(a, 4, axis=0))
+
+print(a[0:1], a[1:2], a[2:3], a[3:])
+
+###열 단위로 분할하기
+
+import numpy as np
+a=np.arange(12).reshape(4, 3)
+print(a)
+
+
+
+print(np.hsplit(a, 3))
+
+
+
+print(np.split(a, 3, axis=1))
+
+#Section 03. 배열의 인덱싱과 슬라이싱
+##1. 1차원 배열의 인덱싱과 슬라이싱
+
+d=np.arange(6)
+print(d, d.shape)
+
+# 1차원 배열의 인덱싱
+print(d[0], d[1], d[-3], d[-1], d[-2])
+
+# 1차원 배열의 슬라이싱
+print(d[2:3], d[:], d[:-1])
+print(d[::2], d[::-1])
+d[0]=10 # 요소 값 변경
+print(d)
+
+##2. 2차원 배열의 인덱싱과 슬라이싱
+
+
+d=np.arange(12).reshape(3, 4)
+print(d, d.shape)
+
+# 2차원 배열의 인덱싱
+print(d[0][0]) # 배열명[행][열] 형태
+print(d[0,0]) # 배열명[행,열] 형태
+print(d[2,1])
+
+# 2차원 배열의 슬라이싱
+print(d[0]) # 0행만 슬라이싱
+print(d[0,:]) # 0행의 전체 열 슬라이싱
+print(d[:,:-1]) # 마지막 열 제외한 전체 행과 열 슬라이싱
+print(d[::2,::2]) # 2행 2열 간격으로 전체 행과 열 슬라이싱
+
+d[0]=20 # 0번 행 요소를 모두 20으로 변경
+print(d)
+
+d[::2,::3]=30 # 슬라이싱된 요소값을 한꺼번에 변경
+print(d[::2,::3])
+print(d)
+
+d[:,:]=-1 # 전체 요소값을 한꺼번에 변경
+print(d)
+
+##3. 3차원 배열의 인덱싱과 슬라이싱
+
+d=np.arange(12).reshape(2, 2, 3)
+print(d, d.shape)
+
+# 3차원 배열의 인덱싱
+print(d[0][0][0]) # 0면 0행 0열 인덱싱
+print(d[0, 0, 0]) # 0면 0행 0열 인덱싱
+print(d[0, 1, 2]) # 0면 1행 2열 인덱싱
+
+# 3차원 배열의 슬라이싱
+print(d[:,:-1,:-1])
+
+print(d[:,1:,1:])
+
+print(d[:,:,-1])
+
+print(d[:,-1,-1])
+print(d[-1,-1,-1])
+
+a=np.arange(12)
+print(a, a.shape)
+print(a[0]) # 스칼라
+print(a[0:1]) # 배열(ndarray)
+
+##4. 불 인덱싱
+
+import numpy as np
+a=np.array([1, 2, 3, 4, 5, 6])
+print(a)
+
+print(a>2)
+
+print(a[a>2])
+
+##5. 조건 필터
+
+a=np.array([1, 2, 3, 4, 5, 6])
+result=a>2
+result
+
+a[a>2]
+
+a[a!=3]
+
+print(a[(a>2) & (a<6)]) # 2보다 크고 6보다 작은 요소만 추출
+print(a[a % 2==0]) # 2로 나눈 나머지가 0인 요소만 추출
+print(a[a<a.mean( )]) # 평균보다 작은 값만 추출
+
+print(a[True])
+print(a[False])
+
+#Section 04. 넘파이 배열의 정렬
+##1 기본 정렬: sort 함수
+
+a=np.array([2, 8, 9, 7, 3, 1, 4, 5, 6])
+print(a, a.shape)
+r=np.sort(a) # 원본 변경 없이 오름차순 정렬
+print(r, a)
+
+# 오름차순 정렬
+a.sort()
+print(a)
+
+# 내림차순 정렬
+r=np.sort(a)[::-1]
+print(r)
+
+##2. 인덱스 반환 정렬: argsort 함수
+
+a=np.array([2, 8, 9, 7, 3, 1, 4, 5, 6])
+print(a, a.shape)
+
+np.argsort(a)
+
+sort_index=np.argsort(a)
+print(sort_index)
+
+##3. 2차원 배열의 정렬
+
+arr2d=np.array([[5, 6, 7, 8],
+ [4, 3, 2, 1],
+ [10, 9, 12, 11]])
+print(arr2d)
+print(arr2d.shape)
+
+# 열 방향으로 같은 행의 요소 정렬
+np.sort(arr2d, axis=1)
+
+# 행 방향으로 같은 열의 요소 정렬
+np.sort(arr2d, axis=0)
+
+# 열 방향으로 같은 행 정렬
+print(arr2d)
+print(np.sort(arr2d))
+np.argsort(arr2d, axis=1)
+
+# 행 방향으로 같은 열 정렬
+print(arr2d)
+print(np.sort(arr2d, axis=0))
+np.argsort(arr2d, axis=0)
+
+#Section 05. 넘파이 배열의 연산
+## 1. 넘파이 배열의 연산
+### 배열 내 요소들의 연산
+
+# 같은 배열 내 요소의 합 구하기
+import numpy as np
+a=np.array([[1, 2, 3],
+ [4, 5, 6]])
+np.sum(a, axis=0), np.sum(a, axis=1)
+
+a.sum()
+
+###배열과 상수의 사칙연산
+
+a=np.array([[1, 2, 3],
+ [4, 5, 6]])
+b=2
+print(a+b)
+print(a-b)
+print(a*b)
+print(a/b)
+
+A=np.arange(1, 13).reshape(3, 4)
+print(A+10)
+print(A-10)
+print(A*10)
+print(A/10)
+
+A=np.arange(1, 13).reshape(3, 4)
+A-1
+
+### 배열과 배열의 요소 간 연산
+
+a=np.array([[1, 2, 3],
+ [4, 5, 6]])
+b=np.array([1, 2, 3]) # b=np.array([[1, 2, 3]])도 가능
+print(a+b)
+print(a-b)
+print(a*b)
+print(a/b)
+
+###배열 간의 곱셈과 행렬 곱셈의 차이
+
+a=np.array([[1, 2],
+ [3, 4]])
+b=np.array([[1, 2],
+ [1, 2]])
+print(a*b)
+print(a.dot(b))
+
+##2. 브로드캐스팅
+
+A=np.array([[1, 2],
+ [3, 4]])
+B=np.array([1, 2])
+A+B
+
+A=np.array([[1, 2, 3],
+ [4, 5, 6]])
+B=np.array([2])
+A+B
+
+A=np.array([[1, 2, 3],
+ [4, 5, 6]])
+B=np.array([[2],
+ [4]])
+A+B
+
